@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 1.핸들러매핑과 핸들러어답터를 자동으로 객체 생성함
+		 2.@annotation을 사용할 수 있게 설정해 줌
+	 -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- css,image,is와 같은 공유되는 파일의 위치를 정하고 MVC외 처리를 실시함
+		 디스패쳐서블릿은 관여하지 말고 그냥 통과시켜라
+		 http://localhost:8080/ch0201/resources/images/p1234.jpg
+		 /resources/* : 뒤에 / 한개까지만
+		 /resources/** : 뒤에 / / 몇 개를 거쳐도 전부
+	 -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 뷰리졸브 객체 add라는 문자열을 받으면 /WEB-INF/views/add.jsp라는 경로를 반환해 준다 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- com.springmvc.* 이라고 표시하면 해당 패키지의 모든 클래스의 객체를 만들어서 보관 후 자동 주입함 -->
+	<context:component-scan base-package="com.springmvc.*" />
+	<!-- 
+		1. 핸들러매핑
+		2. 뷰리졸브
+		3. com.springmvc.controller.HomeController : @Controller가 있어서 만들어짐
+	 -->
+	
+	
+</beans:beans>

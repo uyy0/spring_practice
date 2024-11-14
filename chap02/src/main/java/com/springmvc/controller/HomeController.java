@@ -24,4 +24,10 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping(value="/test")
+	public String test(Model model) {
+		String test = "안녕하세요!";
+		model.addAttribute("tt",test);
+		return "test";
+	}
 }
