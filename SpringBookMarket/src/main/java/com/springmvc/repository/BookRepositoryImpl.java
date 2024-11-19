@@ -1,7 +1,11 @@
 package com.springmvc.repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.springframework.stereotype.Repository;
 import com.springmvc.domain.Book;
 
@@ -41,5 +45,63 @@ public class BookRepositoryImpl implements BookRepository {
 		System.out.println("BookRepositoryImpl의 getAllBookList 실행 완료. 가져온 리스트 :" +listOfBooks);
 		return listOfBooks;
 	}
-
+	
+	public List<Book> getBookListByCategory(String category){
+		System.out.println("BookRepositoryImpl의 getBookListByCategory 실행됨");
+		List<Book> booksByCategory = new ArrayList<Book>();
+		for (int i = 0; i < listOfBooks.size(); i++) {
+			Book book = listOfBooks.get(i);
+			if(category.equalsIgnoreCase(book.getCategory()))
+				booksByCategory.add(book);
+		}
+		return booksByCategory;
+	}
+	public Set<Book> getBookListByFilter(Map<String, List<String>> filter){
+		System.out.println("BookRepositoryImpl의 getBookListByFilter 실행됨");
+		Set<Book> booksByPublisher = new HashSet<Book>();
+		Set<Book> booksByCategory = new HashSet<Book>();
+		
+		Set<String> booksByFilter = filter.keySet();
+		
+		if(booksByFilter.contains("publisher")) {
+			System.out.println("BookRepositoryImpl의 getBookListByFilter 메서드의 첫번째 if문 실행됨");
+			for(int j = 0 ; j<filter.get("publisher").size(); j++) {
+				String publisherName =filter.get("publisher").get(j);
+				for (int i = 0; i<listOfBooks.size(); i++) {
+					Book book = listOfBooks.get(i);
+					
+					if (publisherName.equalsIgnoreCase(book.getPublisher()))
+						booksByPublisher.add(book);
+				}
+			}
+		}
+		
+		if(booksByFilter.contains("category")) {
+			for(int i=0; i<filter.get("category").size();i++) {
+				String category = filter.get("category").get(i);
+				List<Book> list=getBookListByCategory(category);
+				booksByCategory.addAll(list);
+			}
+		}
+		
+		booksByCategory.retainAll(booksByPublisher);
+		return booksByCategory;
+	}
+	public Book getBookById(String bookId) {
+		System.out.println("BookRepositoryImpl의 getBookById 실행됨");
+		Book bookInfo = null;
+		for(int i = 0 ; i <listOfBooks.size(); i++) {
+			Book book = listOfBooks.get(i);
+			if(book != null && book.getBookId() != null && book.getBookId().equals(bookId)) {
+				bookInfo = book;
+				break;
+			}
+		}
+		if (bookInfo == null)
+			throw new IllegalArgumentException("도서 ID가 " + bookId + "인 해당 도서를 찾을 수 없습니다.");
+			return bookInfo;
+	}
+	public void setNewBook(Book book) {
+		listOfBooks.add(book);
+	}
 }
