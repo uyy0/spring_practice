@@ -36,5 +36,7 @@
 				class="org.springframework.core.io.FileSystemResource">
 		<beans:constructor-arg value="d:/upload/" />
 	</beans:bean>
-	
+	<interceptors>
+		<beans:bean class="com.springmvc.interceptor.ExampleInterceptor"></beans:bean>
+	</interceptors>
 </beans:beans>
