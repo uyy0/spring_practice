@@ -6,10 +6,12 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +29,7 @@ import com.springmvc.domain.Book;
 import com.springmvc.exception.BookIdException;
 import com.springmvc.exception.CategoryException;
 import com.springmvc.service.BookService;
+import com.springmvc.validator.BookValidator;
 
 @Controller
 @RequestMapping("/books")
@@ -35,6 +37,9 @@ public class BookController {
 	
 	@Autowired //bookservice도 컴포넌트 스캔 되어 있어야 함
 	private BookService bookService;
+	
+	@Autowired
+	private BookValidator bookValidator;
 	
 	@GetMapping
 	public String requestBookList(Model model) {
@@ -84,7 +89,13 @@ public class BookController {
 		return "addBook";
 	}
 	@PostMapping("/add")
-	public String submitAddNewBook(@ModelAttribute("NewBook") Book book, HttpServletRequest request) {
+	public String submitAddNewBook(@Valid @ModelAttribute("NewBook") Book book,
+			BindingResult result, HttpServletRequest request) {
+		if(result.hasErrors()) {
+			System.out.println("add error 발생");
+			return "addBook";
+		}
+		
 		MultipartFile bookImage = book.getBookImage();
 		
 		String saveName=bookImage.getOriginalFilename();
@@ -107,6 +118,7 @@ public class BookController {
 	}
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
+		binder.setValidator(bookValidator);
 		binder.setAllowedFields("bookId","name","unitPrice", "author",
 				"description","publisher","category","unitsInStock",
 				"totalPages","releaseDate","condition","bookImage");

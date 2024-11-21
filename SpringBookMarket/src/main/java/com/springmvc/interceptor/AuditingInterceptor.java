@@ -19,11 +19,13 @@ public class AuditingInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request,
 							HttpServletResponse arg1,
 							Object handler) throws Exception{
-		if(request.getRequestURI().endsWith("books/add")&&request.getMethod().equals("POST")) {
+	    System.out.println("Request URI: " + request.getRequestURI());
+	    System.out.println("Request Method: " + request.getMethod());
+	    System.out.println("Remote User: " + request.getRemoteUser());
+		if(request.getRequestURI().endsWith("books/add") && request.getMethod().equals("POST")) {
+			System.out.println("request uri if문 입장");
 			user=request.getRemoteUser();
 			bookId=request.getParameterValues("bookId")[0];
-			System.out.println("preH");
-			System.out.println("bookId : "+bookId);
 		}
 		return true;
 	}

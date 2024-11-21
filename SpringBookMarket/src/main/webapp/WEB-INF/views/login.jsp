@@ -29,7 +29,7 @@
 				UserName과 Password가 올바르지 않습니다. <br />
 			</div>
 		</c:if>
-		<form class="form-signin" action="<c:url value="/login"/>" method="post">
+		<form class="form-signin" action="<c:url value="/login"/>" method="POST">
 			<div class="form-group row">
 				<input type="text" name="username" class="form-control" placeholder="User Name" required autofocus>
 			</div>
