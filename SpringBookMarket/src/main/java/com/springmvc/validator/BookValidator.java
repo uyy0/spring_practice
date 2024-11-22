@@ -32,6 +32,7 @@ public class BookValidator implements Validator{
 	}
 	
 	public void validate(Object target, Errors errors) {
+		System.out.println("BookValidator validate 실행");
 		Set<ConstraintViolation<Object>> violations=beanValidator.validate(target);
 		for(ConstraintViolation<Object> violation : violations) {
 			String propertyPath =violation.getPropertyPath().toString();

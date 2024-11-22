@@ -16,6 +16,7 @@ public class BookIdValidator implements ConstraintValidator<BookId, String>{
 	public void initialize(BookId constraintAnnotation) {
 	}
 	public boolean isValid(String value, ConstraintValidatorContext context) {
+		System.out.println("BookIdValidator isValid 실행");
 		Book book;
 		try {
 			book = bookService.getBookById(value);

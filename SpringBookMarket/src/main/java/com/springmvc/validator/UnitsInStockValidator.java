@@ -11,6 +11,7 @@ public class UnitsInStockValidator implements Validator{
 		return Book.class.isAssignableFrom(clazz);
 	}
 	public void validate(Object target, Errors errors) {
+		System.out.println("UnitsInStock validate 실행");
 		Book book=(Book) target;
 		if(book.getUnitPrice()>=10000 && book.getUnitsInStock()>99) {
 			errors.rejectValue("unitsInStock","UnitsInStockValidator.message");

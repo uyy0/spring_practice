@@ -19,6 +19,7 @@ public class AuditingInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request,
 							HttpServletResponse arg1,
 							Object handler) throws Exception{
+		System.out.println("AuditingInterceptor preHandle 실행");
 	    System.out.println("Request URI: " + request.getRequestURI());
 	    System.out.println("Request Method: " + request.getMethod());
 	    System.out.println("Remote User: " + request.getRemoteUser());
@@ -33,6 +34,7 @@ public class AuditingInterceptor extends HandlerInterceptorAdapter{
 	public void afterCompletion(HttpServletRequest request,
 							HttpServletResponse response,
 							Object handler, Exception arg3) throws Exception{
+		System.out.println("AuditingInterceptor afterCompletion 실행");
 		if(request.getRequestURI().endsWith("books/add")) {
 			logger.warn(String.format("신규등록 도서 ID : %s, 접근자 : %s, 접근시각 : %s", bookId, user, getCurrentTime()));
 		}
