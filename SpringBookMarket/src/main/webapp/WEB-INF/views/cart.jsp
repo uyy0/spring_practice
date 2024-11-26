@@ -29,7 +29,7 @@
 		</form:form>
 	</div>
 	<div>
-		<a href="#" class="btn btn-success float-right">주문하기</a>
+		<a href="<c:url value="/order?cartId=${cartId}"/>" class="btn btn-success float-right">주문하기</a>
 	</div>
 	<div style="padding-top:50px">
 		<table class="table table-hover">
