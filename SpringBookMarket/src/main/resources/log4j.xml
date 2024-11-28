@@ -37,6 +37,33 @@
 			<param name="LevelMax" value="warn" />
 		</filter>	
 	</appender>
+	
+	<!-- 새로운 어펜더 추가 -->
+    <appender name="RollingFile" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="c:/logs/application.log"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+        </layout>
+    </appender>
+    <!-- 새로운 어펜더 추가 종료 -->
+	
+	<!-- Tiles 디버그 로거 추가 -->
+    <logger name="org.apache.tiles">
+        <level value="DEBUG"/>
+        <appender-ref ref="RollingFile"/>
+    </logger>
+    <logger name="org.springframework.web.servlet">
+     	<level value="DEBUG"/>
+     	<appender-ref ref="RollingFile"/>
+     </logger>
+	<logger name="com.springmvc">
+        <level value="DEBUG"/>
+        <appender-ref ref="RollingFile"/>
+    </logger>
+	<!-- 타일 디버그 로거 추가 종료 -->
+	
 	<!-- Application Loggers -->
 	<logger name="com.springmvc">
 		<level value="info" />
