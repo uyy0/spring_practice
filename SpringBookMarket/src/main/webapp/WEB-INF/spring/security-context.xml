@@ -13,7 +13,7 @@
 	<http use-expressions="true">
        <intercept-url pattern="/books/add"  access="hasRole('ROLE_ADMIN')" />
         <form-login login-page="/login"
-        			default-target-url="/books/add"
+        			default-target-url="/books"
         			authentication-failure-url="/loginfailed"
         			username-parameter="username"
         			password-parameter="password" />
@@ -24,7 +24,7 @@
     <authentication-manager>
     	<authentication-provider>
         	<user-service>
-        		<user name="admin"  password="{noop}1234" authorities="ROLE_ADMIN, ROLE_USER"/> 
+        		<user name="admin"  password="{noop}1234" authorities="ROLE_ADMIN"/> 
         	 </user-service>
     	</authentication-provider>
 	</authentication-manager>

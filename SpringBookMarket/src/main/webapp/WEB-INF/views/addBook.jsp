@@ -23,15 +23,15 @@
 				<spring:message code="addBook.form.title.label"/>
 			</h1>
 		</div>
-	</div> -->
+	</div> 
 	
-	<div class="container">
 		<div class="float-right">
-			<form:form action="${pagecontext.request.contextPath}/logout" method="POST">
+			<form:form action="${pageContext.request.contextPath}/logout" method="POST">
 				<input type="submit" class="btn btn-sm btn-success" value="Logout" />
 			</form:form>
-		</div>
+		</div> -->
 		
+	<div class="container">
 		<div class="float-right" style="padding-right:30px">
 			<a href="?language=ko">Korean</a>|<a href="?language=en">English</a>
 		</div>

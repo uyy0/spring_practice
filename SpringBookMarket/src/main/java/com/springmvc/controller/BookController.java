@@ -85,7 +85,7 @@ public class BookController {
 		return "book";
 	}
 	@GetMapping("/add")
-	public String requestAddBookForm(@ModelAttribute("NewBook") Book book) {
+	public String requestAddBookForm(@ModelAttribute("NewBook") Book newBook) {
 		return "addBook";
 	}
 	@PostMapping("/add")

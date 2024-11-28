@@ -41,9 +41,6 @@
 		<beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 			<beans:property name="paramName" value="language" />
 		</beans:bean>
-		<beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-			<beans:property name="paramName" value="language" />
-		</beans:bean>
 	</interceptors>
 	
 	<beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
@@ -83,7 +80,7 @@
 		<beans:property name="flowRegistry" ref="flowRegistry" />			
 	</beans:bean>
 	
-	<beans:bean id="flowHanlerAdapter"
+	<beans:bean id="flowHandlerAdapter"
 				class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
 		<beans:property name="flowExecutor" ref="flowExecutor" />
 	</beans:bean>
@@ -105,7 +102,7 @@
 			
 	<beans:bean id="viewFactoryCreator"
 				class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
-		<beans:property name="viewResolvers" ref="tilesViewResolver"></beans:property>			
+		<beans:property name="viewResolvers" ref="tilesViewResolver"/>			
 	</beans:bean>
 	
 	<beans:bean id="dataSource"
